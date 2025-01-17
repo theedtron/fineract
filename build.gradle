@@ -43,8 +43,17 @@ buildscript {
         }
         npmRepository = 'https://npm.pkg.github.com'
     }
+    configurations.classpath {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'com.burgstaller' && details.requested.name == 'okhttp-digest' && details.requested.version == '1.10') {
+                details.useTarget "io.github.rburgst:${details.requested.name}:1.21"
+                details.because 'Dependency has moved'
+            }
+        }
+    }
     repositories {
         maven { url 'https://plugins.gradle.org/m2/' }
+        // maven { url 'https://archiva-repository.apache.org/archiva/repository/public/' }
     }
 
     dependencies {
