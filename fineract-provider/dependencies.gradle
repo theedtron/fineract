@@ -35,10 +35,15 @@ dependencies {
             'org.glassfish.jersey.media:jersey-media-multipart:2.35',
             'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0',
             'org.glassfish.jersey.core:jersey-common:2.35',
+            
+            // Pentaho reporting dependencies
             'org.apache.fineract:pentaho-plugin:1.10.0-20240422.141908-3',
-            'org.pentaho.reporting.engine:classic-core:3.9.1-GA',
-            'org.pentaho.reporting.engine:classic-extensions:3.9.1-GA',
-            'org.pentaho.reporting.engine:classic-extensions-scripting:3.9.1-GA',
+            'org.pentaho.reporting.engine:classic-core:9.5.0.0-SNAPSHOT',
+            'org.pentaho.reporting.engine:classic-extensions:9.5.0.0-SNAPSHOT',
+            'org.pentaho.reporting.engine:classic-extensions-scripting:9.5.0.0-SNAPSHOT',
+            'org.pentaho:libbase:9.5.0.0-SNAPSHOT',
+            'org.pentaho:libxml:9.5.0.0-SNAPSHOT',
+            'org.pentaho:libformula:9.5.0.0-SNAPSHOT',
 
             'org.springframework:spring-jms',
             'org.springframework:spring-context-support',
