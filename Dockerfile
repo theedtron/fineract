@@ -6,8 +6,8 @@ RUN apt-get update -qq && apt-get install -y wget
 COPY . fineract
 WORKDIR /fineract
 
-RUN ./gradlew --no-daemon -q -x rat -x compileTestJava -x test -x spotlessJavaCheck -x spotlessJava bootJar
-#RUN ./gradlew clean bootjar
+#RUN ./gradlew --no-daemon -q -x rat -x compileTestJava -x test -x spotlessJavaCheck -x spotlessJava bootJar
+RUN ./gradlew clean bootjar
 
 WORKDIR /fineract/target
 RUN jar -xf /fineract/fineract-provider/build/libs/fineract-provider-1.7.3.jar
