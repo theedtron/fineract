@@ -10,7 +10,7 @@ RUN ./gradlew --no-daemon -q -x rat -x compileTestJava -x test -x spotlessJavaCh
 #RUN ./gradlew clean bootjar
 
 WORKDIR /fineract/target
-RUN jar -xf /fineract/fineract-provider/build/libs/fineract-provider-1.7.3.jar
+RUN jar -xf /fineract/fineract-provider/build/libs/fineract-provider-1.7.3-9ab819e4.jar
 
 # We download separately a JDBC driver (which not allowed to be included in Apache binary distribution)
 WORKDIR /fineract/target/BOOT-INF/libs
