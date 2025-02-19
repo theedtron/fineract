@@ -1,4 +1,3 @@
-
 FROM azul/zulu-openjdk-debian:17 AS builder
 
 RUN apt-get update -qq && apt-get install -y wget
@@ -10,7 +9,11 @@ RUN ./gradlew --no-daemon -q -x rat -x compileTestJava -x test -x spotlessJavaCh
 #RUN ./gradlew clean bootjar
 
 WORKDIR /fineract/target
-RUN jar -xf /fineract/fineract-provider/build/libs/fineract-provider-1.7.3-9ab819e4.jar
+RUN echo "Contents of /fineract/fineract-provider/build/libs:" && \
+    ls -la /fineract/fineract-provider/build/libs && \
+    JAR_FILE=$(ls /fineract/fineract-provider/build/libs/fineract-provider-*.jar) && \
+    echo "Extracting JAR: $JAR_FILE" && \
+    jar -xf $JAR_FILE
 
 # We download separately a JDBC driver (which not allowed to be included in Apache binary distribution)
 WORKDIR /fineract/target/BOOT-INF/libs
