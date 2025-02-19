@@ -32,9 +32,14 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-cache',
             'org.springframework.boot:spring-boot-starter-oauth2-resource-server',
 
-            'org.glassfish.jersey.media:jersey-media-multipart:2.35',
-            'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0',
+            // Jersey and JAX-RS dependencies
+            'javax.ws.rs:javax.ws.rs-api:2.1.1',
+            'org.glassfish.jersey.containers:jersey-container-servlet:2.35',
+            'org.glassfish.jersey.core:jersey-server:2.35',
+            'org.glassfish.jersey.core:jersey-client:2.35',
             'org.glassfish.jersey.core:jersey-common:2.35',
+            'org.glassfish.jersey.media:jersey-media-multipart:2.35',
+            'org.glassfish.jersey.inject:jersey-hk2:2.35',
             
             // Pentaho reporting dependencies using local JARs
             files('../pentaho-plugin-10/libs/pentaho-plugin-1.10.0-20240422.141908-3.jar'),
