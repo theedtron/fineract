@@ -31,6 +31,12 @@ repositories {
     maven {
         url "https://oss.sonatype.org/content/repositories/snapshots"
     }
+    maven {
+        url "https://nexus.pentaho.org/content/groups/omni"
+    }
+    flatDir {
+        dirs '../pentaho-plugin-10/libs'
+    }
 }
 
 compileJava.doLast {
