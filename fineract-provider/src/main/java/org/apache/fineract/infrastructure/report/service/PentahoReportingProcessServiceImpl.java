@@ -69,6 +69,15 @@ public class PentahoReportingProcessServiceImpl implements ReportingProcessServi
         // Generate the Pentaho report
         ByteArrayOutputStream outputStream = readReportingService.generatePentahoReportAsOutputStream(reportName, outputType, reportParams, locale, currentUser, errorLog);
 
+        // Check if report generation was successful
+        if (outputStream == null) {
+            String errorMessage = errorLog.length() > 0 ? errorLog.toString() : "Report generation failed. Pentaho reporting may not be properly configured.";
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(errorMessage)
+                .type("text/plain")
+                .build();
+        }
+
         // Set the content type based on output type
         String contentType = getContentType(outputType);
 
