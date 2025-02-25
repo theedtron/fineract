@@ -40,7 +40,7 @@ public class DatabasePasswordEncryptor {
             SecretKeySpec key = new SecretKeySpec(encryptionKey.getBytes(StandardCharsets.UTF_8), ALGORITHM);
             Cipher cipher = Cipher.getInstance(ALGORITHM);
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] encryptedBytes = cipher.doFinal(password.getBytes());
+            byte[] encryptedBytes = cipher.doFinal(password.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
             throw new RuntimeException("Error encrypting database password", e);
@@ -53,7 +53,7 @@ public class DatabasePasswordEncryptor {
             Cipher cipher = Cipher.getInstance(ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, key);
             byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedPassword));
-            return new String(decryptedBytes);
+            return new String(decryptedBytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
             throw new RuntimeException("Error decrypting database password", e);
         }
