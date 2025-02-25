@@ -52,8 +52,10 @@ task weaveJpaClasses {
             description = 'Performs EclipseLink static weaving of entity classes'
             def target = source
             main 'org.eclipse.persistence.tools.weaving.jpa.StaticWeave'
-            args '-persistenceinfo', source, '-classpath', configurations.runtimeClasspath, source, target
-            classpath configurations.runtimeClasspath
+            args '-persistenceinfo', source, '-classpath', sourceSets.main.compileClasspath.asPath + File.pathSeparator + source, source, target
+            classpath = configurations.weaver + sourceSets.main.runtimeClasspath + files(source)
+            // Enable debug output
+            jvmArgs '-verbose:class'
         }
         delete {
             delete "${source}/META-INF/persistence.xml"
@@ -93,6 +95,7 @@ resolve {
 }
 
 configurations {
+    weaver
     providedRuntime // needed for Spring Boot executable WAR
     providedCompile
     compile() {
