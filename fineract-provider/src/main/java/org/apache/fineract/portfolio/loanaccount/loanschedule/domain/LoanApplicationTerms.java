@@ -1043,7 +1043,7 @@ public final class LoanApplicationTerms {
             case DAILY:
                 // For daily work out number of days in the period
                 BigDecimal numberOfDaysInPeriod = BigDecimal
-                        .valueOf(Math.toIntExact(ChronoUnit.DAYS.between(periodStartDate, periodEndDate)));
+                        .valueOf(ChronoUnit.DAYS.between(periodStartDate, periodEndDate));
 
                 final BigDecimal oneDayOfYearInterestRate = this.annualNominalInterestRate.divide(loanTermPeriodsInYearBigDecimal, mc)
                         .divide(divisor, mc);
