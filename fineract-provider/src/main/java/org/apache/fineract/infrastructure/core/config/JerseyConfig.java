@@ -36,19 +36,31 @@ import org.springframework.context.annotation.Configuration;
 public class JerseyConfig extends ResourceConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(JerseyConfig.class);
-
-    JerseyConfig() {
-        register(org.glassfish.jersey.media.multipart.MultiPartFeature.class);
-        property(ServerProperties.WADL_FEATURE_DISABLE, true);
-    }
+    private final ApplicationContext appCtx;
 
     @Autowired
-    ApplicationContext appCtx;
+    public JerseyConfig(ApplicationContext appCtx) {
+        this.appCtx = appCtx;
+        register(org.glassfish.jersey.media.multipart.MultiPartFeature.class);
+        property(ServerProperties.WADL_FEATURE_DISABLE, true);
+        
+        // Register components in constructor instead of PostConstruct
+        registerComponents();
+    }
 
-    @PostConstruct
-    public void setup() {
-        appCtx.getBeansWithAnnotation(Path.class).values().forEach(component -> register(component.getClass()));
+    private void registerComponents() {
+        // Register JAX-RS resources
+        appCtx.getBeansWithAnnotation(Path.class).values()
+            .forEach(component -> {
+                LOG.debug("Registering JAX-RS resource: {}", component.getClass().getName());
+                register(component.getClass());
+            });
 
-        appCtx.getBeansWithAnnotation(Provider.class).values().forEach(this::register);
+        // Register JAX-RS providers
+        appCtx.getBeansWithAnnotation(Provider.class).values()
+            .forEach(provider -> {
+                LOG.debug("Registering JAX-RS provider: {}", provider.getClass().getName());
+                register(provider);
+            });
     }
 }
