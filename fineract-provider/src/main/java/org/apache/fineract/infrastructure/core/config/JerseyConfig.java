@@ -19,7 +19,6 @@
 
 package org.apache.fineract.infrastructure.core.config;
 
-import javax.annotation.PostConstruct;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.ext.Provider;
