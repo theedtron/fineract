@@ -32,7 +32,7 @@ repositories {
         url "https://oss.sonatype.org/content/repositories/snapshots"
     }
     maven {
-        url "https://nexus.pentaho.org/content/groups/omni"
+        url "https://repo1.maven.org/maven2/"
     }
     flatDir {
         dirs '../pentaho-plugin-10/libs'
