@@ -98,7 +98,9 @@ configurations {
     weaver
     providedRuntime // needed for Spring Boot executable WAR
     providedCompile
+    pentahoReporting
     compile() {
+        extendsFrom pentahoReporting
         exclude module: 'hibernate-entitymanager'
         exclude module: 'hibernate-validator'
         exclude module: 'activation'
