@@ -30,8 +30,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import jakarta.ws.rs.core.MultivaluedMap;
-import jakarta.ws.rs.core.Response;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.MultivaluedHashMap;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.fineract.infrastructure.core.api.JsonCommand;
 import org.apache.fineract.infrastructure.core.data.CommandProcessingResult;
@@ -266,7 +267,7 @@ public class ReportMailingJobWritePlatformServiceImpl implements ReportMailingJo
                     final StringBuilder errorLog = new StringBuilder();
                     final Map<String, String> validateStretchyReportParamMap = this.reportMailingJobValidator
                             .validateStretchyReportParamMap(reportMailingJob.getStretchyReportParamMap());
-                    MultivaluedMap<String, String> reportParams = new MultivaluedStringMap();
+                    MultivaluedMap<String, String> reportParams = new MultivaluedHashMap<>();
 
                     if (validateStretchyReportParamMap != null) {
                         Iterator<Map.Entry<String, String>> validateStretchyReportParamMapEntries = validateStretchyReportParamMap
