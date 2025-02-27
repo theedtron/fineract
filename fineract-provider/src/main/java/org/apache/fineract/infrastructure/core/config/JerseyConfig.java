@@ -22,6 +22,8 @@ package org.apache.fineract.infrastructure.core.config;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.ext.Provider;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.slf4j.Logger;
@@ -40,11 +42,21 @@ public class JerseyConfig extends ResourceConfig {
     @Autowired
     public JerseyConfig(ApplicationContext appCtx) {
         this.appCtx = appCtx;
-        register(org.glassfish.jersey.media.multipart.MultiPartFeature.class);
-        property(ServerProperties.WADL_FEATURE_DISABLE, true);
         
-        // Register components in constructor instead of PostConstruct
+        // Configure Jersey for Jakarta EE
+        packages("org.apache.fineract");
+        
+        // Register features and providers
+        register(org.glassfish.jersey.media.multipart.MultiPartFeature.class);
+        register(org.glassfish.jersey.jackson.JacksonFeature.class);
+        
+        // Register Spring components
         registerComponents();
+        
+        // Configure properties
+        property(ServerProperties.WADL_FEATURE_DISABLE, true);
+        property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
+        property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
     }
 
     private void registerComponents() {
