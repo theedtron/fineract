@@ -18,7 +18,6 @@
  */
 package org.apache.fineract.infrastructure.core.config;
 
-import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.autoconfigure.jersey.ResourceConfigCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
