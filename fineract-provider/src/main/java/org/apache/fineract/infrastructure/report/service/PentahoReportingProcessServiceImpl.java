@@ -22,9 +22,9 @@ import java.io.ByteArrayOutputStream;
 
 import java.util.Locale;
 import java.util.Map;
-import jakarta.ws.rs.core.MultivaluedMap;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import org.apache.fineract.infrastructure.core.api.ApiParameterHelper;
 
 import org.apache.fineract.infrastructure.dataqueries.service.ReadReportingService;
