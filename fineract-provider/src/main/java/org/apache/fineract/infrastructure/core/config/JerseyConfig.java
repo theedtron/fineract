@@ -22,8 +22,8 @@ package org.apache.fineract.infrastructure.core.config;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.ext.Provider;
-// import org.glassfish.jersey.jackson.JacksonFeature;
-// import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.slf4j.Logger;
@@ -43,12 +43,12 @@ public class JerseyConfig extends ResourceConfig {
     public JerseyConfig(ApplicationContext appCtx) {
         this.appCtx = appCtx;
         
-        // Configure Jersey for Jakarta EE
+        // Configure base package scanning
         packages("org.apache.fineract");
         
         // Register features and providers
-        register(org.glassfish.jersey.media.multipart.MultiPartFeature.class);
-        register(org.glassfish.jersey.jackson.JacksonFeature.class);
+        register(MultiPartFeature.class);
+        register(JacksonFeature.class);
         
         // Register Spring components
         registerComponents();
@@ -57,6 +57,10 @@ public class JerseyConfig extends ResourceConfig {
         property(ServerProperties.WADL_FEATURE_DISABLE, true);
         property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
         property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
+        
+        // Additional Jersey configuration
+        property(ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, true);
+        property(ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true);
     }
 
     private void registerComponents() {
