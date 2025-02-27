@@ -112,10 +112,8 @@ dependencies {
 
     // We're using Jakarta EE instead of JavaEE, so configure spring-boot-starter-jersey accordingly
     implementation('org.springframework.boot:spring-boot-starter-jersey') {
-        exclude group: 'jakarta.ws.rs', module: 'jakarta.ws.rs-api'
-        exclude group: 'org.glassfish.jersey.core'
-        exclude group: 'org.glassfish.jersey.containers'
-        exclude group: 'org.glassfish.jersey.media'
+        // Remove exclusions to use Jakarta EE dependencies
+    
         exclude group: 'org.glassfish.jersey.ext'
         exclude group: 'org.glassfish.jersey.inject'
         exclude group: 'org.glassfish.hk2'
