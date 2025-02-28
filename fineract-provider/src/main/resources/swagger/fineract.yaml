@@ -1,0 +1,371 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements. See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership. The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+openapi: 3.0.3
+info:
+  contact:
+    email: dev@fineract.apache.org
+  description: |-
+    Apache Fineract is a secure, multi-tenanted microfinance platform.
+    The goal of the Apache Fineract API is to empower developers to build apps on top of the Apache Fineract Platform.
+    The https://cui.fineract.dev[reference app] (username: mifos, password: password) works on the same demo tenant as the interactive links in this documentation.
+    Until we complete the new REST API documentation you still have the legacy documentation available https://fineract.apache.org/legacy-docs/apiLive.htm[here].
+    Please check https://fineract.apache.org/docs/current[the Fineract documentation] for more information.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Apache Fineract REST API
+  version: 1.7.4-01b96579
+servers:
+- url: /fineract-provider/api/v1
+- url: https://demo.fineract.dev/fineract-provider/api/v1
+security:
+- basicAuth: []
+  tenantid: []
+  version: 1.0.0
+servers:
+  - url: /fineract-provider/api/v1
+paths:
+  /clients:
+    get:
+      tags:
+        - Clients
+      summary: Retrieve all clients
+      description: Returns a list of all clients
+      operationId: retrieveAllClients
+      parameters:
+        - name: offset
+          in: query
+          description: offset
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+    post:
+      tags:
+        - Clients
+      summary: Create a new client
+      description: Creates a new client
+      operationId: createClient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostClientResponse'
+  /clients/{clientId}:
+    get:
+      tags:
+        - Clients
+      summary: Retrieve a client
+      description: Returns the details of a specific client
+      operationId: retrieveClient
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+    put:
+      tags:
+        - Clients
+      summary: Update a client
+      description: Updates the details of a client
+      operationId: updateClient
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutClientResponse'
+    delete:
+      tags:
+        - Clients
+      summary: Delete a client
+      description: Deletes a client
+      operationId: deleteClient
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteClientResponse'
+  /loans:
+    get:
+      tags:
+        - Loans
+      summary: Retrieve all loans
+      description: Returns a list of all loans
+      operationId: retrieveAllLoans
+      parameters:
+        - name: offset
+          in: query
+          description: offset
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Loan'
+    post:
+      tags:
+        - Loans
+      summary: Create a new loan
+      description: Creates a new loan
+      operationId: createLoan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoanRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostLoanResponse'
+components:
+  schemas:
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        accountNo:
+          type: string
+        status:
+          $ref: '#/components/schemas/CodeValueData'
+        active:
+          type: boolean
+        activationDate:
+          type: string
+          format: date
+        firstname:
+          type: string
+        lastname:
+          type: string
+        displayName:
+          type: string
+        officeId:
+          type: integer
+          format: int64
+        officeName:
+          type: string
+    ClientRequest:
+      type: object
+      required:
+        - firstname
+        - lastname
+        - officeId
+      properties:
+        officeId:
+          type: integer
+          format: int64
+        firstname:
+          type: string
+        lastname:
+          type: string
+        active:
+          type: boolean
+        activationDate:
+          type: string
+          format: date
+    PostClientResponse:
+      type: object
+      properties:
+        officeId:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        resourceId:
+          type: integer
+          format: int64
+    PutClientResponse:
+      type: object
+      properties:
+        officeId:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        resourceId:
+          type: integer
+          format: int64
+    DeleteClientResponse:
+      type: object
+      properties:
+        officeId:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        resourceId:
+          type: integer
+          format: int64
+    CodeValueData:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        position:
+          type: integer
+          format: int32
+    Loan:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        accountNo:
+          type: string
+        status:
+          $ref: '#/components/schemas/CodeValueData'
+        clientId:
+          type: integer
+          format: int64
+        clientName:
+          type: string
+        loanProductId:
+          type: integer
+          format: int64
+        loanProductName:
+          type: string
+        principal:
+          type: number
+          format: double
+    LoanRequest:
+      type: object
+      required:
+        - clientId
+        - productId
+        - principal
+      properties:
+        clientId:
+          type: integer
+          format: int64
+        productId:
+          type: integer
+          format: int64
+        principal:
+          type: number
+          format: double
+        loanTermFrequency:
+          type: integer
+          format: int32
+        loanTermFrequencyType:
+          type: integer
+          format: int32
+    PostLoanResponse:
+      type: object
+      properties:
+        officeId:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+        loanId:
+          type: integer
+          format: int64
+        resourceId:
+          type: integer
+          format: int64
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    tenantid:
+      type: apiKey
+      in: header
+      name: Fineract-Platform-TenantId
+security:
+  - basicAuth: []
+    tenantid: []

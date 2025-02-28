@@ -74,24 +74,23 @@ task prepareInputYaml {
 
     doLast {
         copy {
-            from file("${projectDir}/config/swagger/fineract-input.yaml.template")
+            from file("${projectDir}/src/main/resources/swagger/fineract.yaml")
             into file("${buildDir}/tmp/swagger")
             rename { String filename -> return 'fineract-input.yaml' }
-            filter(ReplaceTokens, tokens: [VERSION: "${project.version}".toString()])
         }
     }
 }
 
 resolve {
-    logging.captureStandardOutput LogLevel.QUIET
+    logging.captureStandardOutput LogLevel.INFO
     outputFileName = 'fineract'
     outputFormat = 'JSONANDYAML'
-    prettyPrint = false
+    prettyPrint = true
     classpath = sourceSets.main.runtimeClasspath
     outputDir = file("${buildDir}/classes/java/main/static")
-    openApiFile = file("${buildDir}/tmp/swagger/fineract-input.yaml")
-    sortOutput = true
-    dependsOn(prepareInputYaml)
+    resourcePackages = ['org.apache.fineract']
+    readAllResources = true
+    dependsOn(prepareInputYaml, compileJava)
 }
 
 configurations {

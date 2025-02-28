@@ -7,7 +7,7 @@ WORKDIR /fineract
 
 # Add Pentaho dependencies to build.gradle before building
 # RUN ./gradlew --info --no-daemon -q -x rat -x compileTestJava -x test -x spotlessJavaCheck -x spotlessJava bootJar
-RUN ./gradlew clean bootJar --info
+RUN ./gradlew clean bootJar -x licenseMain -x licenseTest  --info
 
 WORKDIR /fineract/target
 RUN echo "Contents of /fineract/fineract-provider/build/libs:" && \

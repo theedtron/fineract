@@ -41,26 +41,28 @@ openApiValidate {
 
 task buildJavaSdk(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
     generatorName = 'java'
-    verbose = false
+    verbose = true
     validateSpec = false
     skipValidateSpec = true
     inputSpec = "file:///$swaggerFile"
     outputDir = "$buildDir/generated/java".toString()
-    templateDir = "$rootDir/fineract-client/src/main/resources/java/template/"
-    groupId = 'org.apache.fineract'
     apiPackage = 'org.apache.fineract.client.services'
     invokerPackage = 'org.apache.fineract.client'
     modelPackage = 'org.apache.fineract.client.models'
     configOptions = [
-        dateLibrary: 'java8',
-        useRxJava2: 'false',
         library: 'retrofit2',
+        dateLibrary: 'java8',
+        useJakartaEe: 'true',
         hideGenerationTimestamp: 'true',
+        interfaceOnly: 'true',
+        apiSuffix: 'Client',
+        serializationLibrary: 'jackson',
+        sourceFolder: 'src/main/java'
     ]
     generateModelTests = false
     generateApiTests = false
-    ignoreFileOverride = "$projectDir/.openapi-generator-ignore"
-    dependsOn(':fineract-provider:resolve')
+    generateModelDocumentation = false
+    generateApiDocumentation = false
 }
 
 task buildTypescriptAngularSdk(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){

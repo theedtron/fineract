@@ -19,14 +19,12 @@
 package org.apache.fineract.infrastructure.report.service;
 
 import java.io.ByteArrayOutputStream;
-
 import java.util.Locale;
 import java.util.Map;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
 import org.apache.fineract.infrastructure.core.api.ApiParameterHelper;
-
 import org.apache.fineract.infrastructure.dataqueries.service.ReadReportingService;
 import org.apache.fineract.infrastructure.report.annotation.ReportService;
 import org.apache.fineract.infrastructure.security.service.PlatformSecurityContext;
@@ -42,8 +40,7 @@ public class PentahoReportingProcessServiceImpl implements ReportingProcessServi
     private final PlatformSecurityContext context;
 
     @Autowired
-    public PentahoReportingProcessServiceImpl(final ReadReportingService readReportingService,
-            final PlatformSecurityContext context) {
+    public PentahoReportingProcessServiceImpl(final ReadReportingService readReportingService, final PlatformSecurityContext context) {
         this.readReportingService = readReportingService;
         this.context = context;
     }
@@ -53,29 +50,28 @@ public class PentahoReportingProcessServiceImpl implements ReportingProcessServi
         final String outputTypeParam = queryParams.getFirst("output-type");
         final String outputType = outputTypeParam != null ? outputTypeParam : "HTML";
         Map<String, String> reportParams = getReportParams(queryParams);
-        
+
         // Get current user
         final AppUser currentUser = context.authenticatedUser();
-        
+
         // Get locale from query params or use default
         Locale locale = ApiParameterHelper.extractLocale(queryParams);
         if (locale == null) {
             locale = Locale.getDefault();
         }
-        
+
         // Create error log StringBuilder
         StringBuilder errorLog = new StringBuilder();
 
         // Generate the Pentaho report
-        ByteArrayOutputStream outputStream = readReportingService.generatePentahoReportAsOutputStream(reportName, outputType, reportParams, locale, currentUser, errorLog);
+        ByteArrayOutputStream outputStream = readReportingService.generatePentahoReportAsOutputStream(reportName, outputType, reportParams,
+                locale, currentUser, errorLog);
 
         // Check if report generation was successful
         if (outputStream == null) {
-            String errorMessage = errorLog.length() > 0 ? errorLog.toString() : "Report generation failed. Pentaho reporting may not be properly configured.";
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                .entity(errorMessage)
-                .type("text/plain")
-                .build();
+            String errorMessage = errorLog.length() > 0 ? errorLog.toString()
+                    : "Report generation failed. Pentaho reporting may not be properly configured.";
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorMessage).type("text/plain").build();
         }
 
         // Set the content type based on output type

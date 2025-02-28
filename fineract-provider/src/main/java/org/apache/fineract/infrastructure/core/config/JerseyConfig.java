@@ -42,22 +42,22 @@ public class JerseyConfig extends ResourceConfig {
     @Autowired
     public JerseyConfig(ApplicationContext appCtx) {
         this.appCtx = appCtx;
-        
+
         // Configure base package scanning
         packages("org.apache.fineract");
-        
+
         // Register features and providers
         register(MultiPartFeature.class);
         register(JacksonFeature.class);
-        
+
         // Register Spring components
         registerComponents();
-        
+
         // Configure properties
         property(ServerProperties.WADL_FEATURE_DISABLE, true);
         property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
         property(ServerProperties.RESPONSE_SET_STATUS_OVER_SEND_ERROR, true);
-        
+
         // Additional Jersey configuration
         property(ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, true);
         property(ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true);
@@ -65,17 +65,15 @@ public class JerseyConfig extends ResourceConfig {
 
     private void registerComponents() {
         // Register JAX-RS resources
-        appCtx.getBeansWithAnnotation(Path.class).values()
-            .forEach(component -> {
-                LOG.debug("Registering JAX-RS resource: {}", component.getClass().getName());
-                register(component.getClass());
-            });
+        appCtx.getBeansWithAnnotation(Path.class).values().forEach(component -> {
+            LOG.debug("Registering JAX-RS resource: {}", component.getClass().getName());
+            register(component.getClass());
+        });
 
         // Register JAX-RS providers
-        appCtx.getBeansWithAnnotation(Provider.class).values()
-            .forEach(provider -> {
-                LOG.debug("Registering JAX-RS provider: {}", provider.getClass().getName());
-                register(provider);
-            });
+        appCtx.getBeansWithAnnotation(Provider.class).values().forEach(provider -> {
+            LOG.debug("Registering JAX-RS provider: {}", provider.getClass().getName());
+            register(provider);
+        });
     }
 }

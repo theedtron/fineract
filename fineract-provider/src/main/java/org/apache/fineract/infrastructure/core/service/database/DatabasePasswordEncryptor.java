@@ -18,12 +18,12 @@
  */
 package org.apache.fineract.infrastructure.core.service.database;
 
-import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Value;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Component
 public class DatabasePasswordEncryptor {
