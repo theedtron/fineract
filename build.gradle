@@ -96,7 +96,7 @@ description = '''\
 Run as:
 gradle clean bootRun'''
 
-ext['groovy.version'] = '3.0.10'
+// Using Spring Boot's managed Groovy version
 ext['swaggerFile'] = "$rootDir/fineract-provider/config/swagger/fineract.yaml".toString()
 
 allprojects  {

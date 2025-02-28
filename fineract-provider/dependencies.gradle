@@ -31,8 +31,7 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-security',
             'org.springframework.boot:spring-boot-starter-cache',
             'org.springframework.boot:spring-boot-starter-oauth2-resource-server',
-            'javax.annotation:javax.annotation-api:1.3.2',
-            'javax.ws.rs:javax.ws.rs-api:2.1.1',
+            'jakarta.annotation:jakarta.annotation-api:2.1.1',
 
             // JAX-RS and Jersey dependencies for Jakarta EE
             'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0',

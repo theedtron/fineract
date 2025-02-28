@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.apache.fineract.infrastructure.campaigns.email.domain.EmailCampaign;
 import org.apache.fineract.infrastructure.campaigns.email.domain.EmailCampaignRepository;
 import org.apache.fineract.infrastructure.campaigns.sms.constants.SmsCampaignTriggerType;

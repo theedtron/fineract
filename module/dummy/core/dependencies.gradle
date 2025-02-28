@@ -19,4 +19,16 @@
 
 dependencies {
     implementation('org.springframework:spring-context')
+    implementation 'org.apache.groovy:groovy'
+    implementation 'org.apache.groovy:groovy-ant'
+    implementation 'org.apache.groovy:groovy-astbuilder'
+    implementation 'org.apache.groovy:groovy-console'
+    implementation 'org.apache.groovy:groovy-datetime'
+    implementation 'org.apache.groovy:groovy-dateutil'
+    implementation 'org.apache.groovy:groovy-groovydoc'
+    implementation 'org.apache.groovy:groovy-json'
+    implementation 'org.apache.groovy:groovy-nio'
+    implementation 'org.apache.groovy:groovy-sql'
+    implementation 'org.apache.groovy:groovy-templates'
+    implementation 'org.apache.groovy:groovy-xml'
 }
